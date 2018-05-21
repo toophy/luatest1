@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<Project Name="mytest.luaprj" Cmd="" Arg="" Dir="" Toggle="false" >
+    <LuaFile RelativePath=".\main.lua" />
+    <Filter Name="mods" Directory=".\mods" Toggle="false" >
+        <LuaFile RelativePath=".\mods\skill.lua" />
+    </Filter>
+    <Filter Name="tests" Toggle="false" >
+        <LuaFile RelativePath=".\tests\test_class.lua" />
+        <LuaFile RelativePath=".\tests\test_class2.lua" />
+        <LuaFile RelativePath=".\tests\test_coroutine.lua" />
+    </Filter>
+    <Filter Name="utils" Toggle="false" >
+        <LuaFile RelativePath=".\utils\deepcopy.lua" />
+        <LuaFile RelativePath=".\utils\real_class.lua" />
+        <LuaFile RelativePath=".\utils\TablePlus.lua" />
+    </Filter>
+</Project>
