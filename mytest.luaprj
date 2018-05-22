@@ -14,5 +14,6 @@
         <LuaFile RelativePath=".\utils\deepcopy.lua" />
         <LuaFile RelativePath=".\utils\real_class.lua" />
         <LuaFile RelativePath=".\utils\TablePlus.lua" />
+        <LuaFile RelativePath=".\utils\init.lua" />
     </Filter>
 </Project>

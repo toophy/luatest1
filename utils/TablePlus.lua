@@ -1,4 +1,4 @@
-TablePlus = {}
+local TablePlus = {}
 
 local function checkTable( t )
 	-- body

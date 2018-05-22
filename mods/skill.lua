@@ -1,4 +1,4 @@
-skill = {}
+local skill = {}
 
 function skill.Check(id)
 	print( string.format("¼ì²é¼¼ÄÜ%d",id) )
