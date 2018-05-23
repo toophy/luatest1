@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 
-<Project Name="mytest.luaprj" Cmd="" Arg="" Dir="" Toggle="false" >
+<Project Name="mytest.luaprj" Cmd="C:\Program Files (x86)\Lua\5.1\lua.exe" Arg="E:\temp\luatest\main.lua" Dir="E:\temp\luatest\" Toggle="false" >
     <LuaFile RelativePath=".\main.lua" />
     <Filter Name="mods" Directory=".\mods" Toggle="false" >
         <LuaFile RelativePath=".\mods\skill.lua" />
+        <LuaFile RelativePath=".\mods\frame.lua" />
+        <LuaFile RelativePath=".\mods\battle.lua" />
+        <LuaFile RelativePath=".\mods\object.lua" />
     </Filter>
     <Filter Name="tests" Toggle="false" >
         <LuaFile RelativePath=".\tests\test_class.lua" />
@@ -12,7 +15,6 @@
     </Filter>
     <Filter Name="utils" Toggle="false" >
         <LuaFile RelativePath=".\utils\deepcopy.lua" />
-        <LuaFile RelativePath=".\utils\real_class.lua" />
         <LuaFile RelativePath=".\utils\TablePlus.lua" />
         <LuaFile RelativePath=".\utils\init.lua" />
     </Filter>
