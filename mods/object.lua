@@ -37,11 +37,11 @@ function M:OnMove(dir)
 			for i,v in ipairs(objs) do
 				objs_name = objs[i]:GetName() .. ","				
 			end
-			print(string.format("|%s| 向左移动碰到%s, 停止移动", self.Name,objs_name))
+			utils.Log("|%s| 向左移动碰到%s, 停止移动", self.Name,objs_name)
 			return true
 		end
 		self.Pos = self.Pos - self.Speed
-		print(string.format("|%s| 向左移动到 %d", self.Name,self.Pos))
+		utils.Log("|%s| 向左移动到 %d", self.Name,self.Pos)
 	else
 		local objs,ret = self.Battle:Collide(self,self.Pos+self.Speed)
 		if ret then
@@ -49,13 +49,13 @@ function M:OnMove(dir)
 			for i,v in ipairs(objs) do
 				objs_name = objs[i]:GetName() .. ","				
 			end
-			print(string.format("|%s| 向右移动碰到%s, 停止移动", self.Name,objs_name))
+			utils.Log("|%s| 向右移动碰到%s, 停止移动", self.Name,objs_name)
 			return true
 		end
 		self.Pos = self.Pos + self.Speed
-		print(string.format("|%s| 向右移动到 %d", self.Name,self.Pos))
+		utils.Log("|%s| 向右移动到 %d", self.Name,self.Pos)
 	end
 	return false
 end
-
-return M
+ 
+return utils.Class(M)

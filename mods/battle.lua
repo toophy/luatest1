@@ -31,18 +31,17 @@ function M:Run()
 end
 
 function M:CreateObject(nam,pos,dir)
-	local newObjClass = utils.Class(object)
-	local newObj     = newObjClass.new(self,nam,pos,dir,self.ObjWidth)
+	local newObj     = object.new(self,nam,pos,dir,self.ObjWidth)
 	table.insert(self.Objects,newObj)
 	self.ObjectCount = self.ObjectCount + 1
 	
-	print(string.format("新建对象: %s", newObj.Name))
+	utils.Log("新建对象: %s", newObj.Name)
 end
 
 function M:DestroyObject(nam)
 	for i,v in ipairs(self.Objects) do
 		if self.Objects[i].Name == nam then
-			print(string.format("摧毁对象: %s", nam))
+			utils.Log("摧毁对象: %s", nam)
 			table.remove(self.Objects,i)
 			self.ObjectCount = self.ObjectCount - 1
 			break
@@ -75,4 +74,4 @@ function M:Collide(obj,pos)
 	return objs,ret
 end
 
-return M
+return utils.Class(M)

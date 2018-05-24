@@ -26,10 +26,9 @@ function M:OnFrame()
 end
 
 function M:CreateBattle(nam,width)
-	local newBattleClass = utils.Class(battle)
-	local newBattle = newBattleClass.new(self,nam,width)
+	local newBattle = battle.new(self,nam,width)
 	table.insert(self.Battles,newBattle)
 	return newBattle
 end
 
-return M
+return utils.Class(M)

@@ -4,7 +4,7 @@ package.path = lfs.currentdir() .. "\\;" .. "?/init.lua" .. package.path
 
 math.randomseed(os.time())
 
-require("mods.frame"):new():Run()
+require("mods.frame").new():Run()
 
 
 
