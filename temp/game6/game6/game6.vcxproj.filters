@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="源文件\randerx">
+      <UniqueIdentifier>{793d4842-0803-4e8f-a1bb-bf3d2e9b5483}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -21,10 +24,40 @@
     <ClCompile Include="rander.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="randerx.cpp">
+      <Filter>源文件\randerx</Filter>
+    </ClCompile>
+    <ClCompile Include="randerx_image.cpp">
+      <Filter>源文件\randerx</Filter>
+    </ClCompile>
+    <ClCompile Include="randerx_image_mgr.cpp">
+      <Filter>源文件\randerx</Filter>
+    </ClCompile>
+    <ClCompile Include="randerx_layer.cpp">
+      <Filter>源文件\randerx</Filter>
+    </ClCompile>
+    <ClCompile Include="point.cpp">
+      <Filter>源文件\randerx</Filter>
+    </ClCompile>
+    <ClCompile Include="rect.cpp">
+      <Filter>源文件\randerx</Filter>
+    </ClCompile>
+    <ClCompile Include="screen_back.cpp">
+      <Filter>源文件\randerx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="rander.h">
       <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="safetype.h">
+      <Filter>源文件</Filter>
+    </ClInclude>
+    <ClInclude Include="randerx.h">
+      <Filter>源文件\randerx</Filter>
+    </ClInclude>
+    <ClInclude Include="randerx_surface.cpp">
+      <Filter>源文件\randerx</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
