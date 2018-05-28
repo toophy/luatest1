@@ -42,7 +42,7 @@
     <ClCompile Include="rect.cpp">
       <Filter>源文件\randerx</Filter>
     </ClCompile>
-    <ClCompile Include="screen_back.cpp">
+    <ClCompile Include="randerx_screen.cpp">
       <Filter>源文件\randerx</Filter>
     </ClCompile>
   </ItemGroup>

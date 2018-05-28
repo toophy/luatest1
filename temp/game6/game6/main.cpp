@@ -2,6 +2,7 @@
 #include <conio.h>
 
 #include "rander.h"
+#include "randerx.h"
 //
 //void main()
 //{
@@ -53,19 +54,27 @@ void Move(COORD *MoPos, int key)
 	}
 }
 
+using namespace randerx;
+
 int main()
 {
+	ssr buff_string = "■■■\n"
+					  "■■■\n"
+					  "■■■\n";
+	GetImageMgr()->LoadFromBuffer("man", buff_string.c_str(), buff_string.size(), true);
+
+
 	cout << "用方向键移动下行输出内容" << endl;
 	hOut = GetStdHandle(STD_OUTPUT_HANDLE);//取句柄
-	COORD CrPos = { 0, 1 };//保存光标信息
+	COORD CrPos = { 1, 1 };//保存光标信息
 	prin(CrPos);//打印
 	//等待键按下
 	while (1)
 	{
-		if (kbhit())
+		if (_kbhit())
 		{
 			cle(CrPos);//清除原有输出
-			Move(&CrPos, getch());
+			Move(&CrPos, _getch());
 			prin(CrPos);
 		}
 		Sleep(30);

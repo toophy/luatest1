@@ -2,203 +2,181 @@
 
 using namespace randerx;
 
-// µã
-class Point
+Pointx::Pointx()
 {
-public:
-	Point()
-	{
-		X = Y = 0;
-	}
+	X = Y = 0;
+}
 
-	Point(Point &point)
-	{
-		X = point.X;
-		Y = point.Y;
-	}
-
-	Point(s4 x, s4 y)
-	{
-		X = x;
-		Y = y;
-	}
-
-	Point operator+(Point& point)
-	{
-		return Point(X + point.X, Y + point.Y);
-	}
-
-	Point operator-(Point& point)
-	{
-		return Point(X - point.X, Y - point.Y);
-	}
-
-	bool Equals(Point& point)
-	{
-		return (X == point.X) && (Y == point.Y);
-	}
-
-public:
-
-	s4 X;
-	s4 Y;
-};
-
-// ¾ØÐÎ
-class Rect
+Pointx::Pointx(Pointx &point)
 {
-public:
+	X = point.X;
+	Y = point.Y;
+}
 
-	Rect()
-	{
-		X = Y = Width = Height = 0;
-	}
+Pointx::Pointx(s4 x, s4 y)
+{
+	X = x;
+	Y = y;
+}
 
-	Rect(s4 x, s4 y, s4 width, s4 height)
-	{
-		X = x;
-		Y = y;
-		Width = width;
-		Height = height;
-	}
+Pointx Pointx::operator+(Pointx& point)
+{
+	return Pointx(X + point.X, Y + point.Y);
+}
 
-	Rect* Clone()
-	{
-		return new Rect(X, Y, Width, Height);
-	}
+Pointx Pointx::operator-(Pointx& point)
+{
+	return Pointx(X - point.X, Y - point.Y);
+}
 
-	void GetLocation(Point* point)
-	{
-		point->X = X;
-		point->Y = Y;
-	}
+bool Pointx::Equals(Pointx& point)
+{
+	return (X == point.X) && (Y == point.Y);
+}
 
-	void GetBounds(Rect* rect)
-	{
-		rect->X = X;
-		rect->Y = Y;
-		rect->Width = Width;
-		rect->Height = Height;
-	}
+Rectx::Rectx()
+{
+	X = Y = Width = Height = 0;
+}
 
-	s4 GetLeft()
-	{
-		return X;
-	}
+Rectx::Rectx(s4 x, s4 y, s4 width, s4 height)
+{
+	X = x;
+	Y = y;
+	Width = width;
+	Height = height;
+}
 
-	s4 GetTop()
-	{
-		return Y;
-	}
+Rectx* Rectx::Clone()
+{
+	return new Rectx(X, Y, Width, Height);
+}
 
-	s4 GetRight()
-	{
-		return X + Width;
-	}
+void Rectx::GetLocation(Pointx* point)
+{
+	point->X = X;
+	point->Y = Y;
+}
 
-	s4 GetBottom()
-	{
-		return Y + Height;
-	}
+void Rectx::GetBounds(Rectx* rect)
+{
+	rect->X = X;
+	rect->Y = Y;
+	rect->Width = Width;
+	rect->Height = Height;
+}
 
-	bool IsEmptyArea()
-	{
-		return (Width <= 0) || (Height <= 0);
-	}
+s4 Rectx::GetLeft()
+{
+	return X;
+}
 
-	bool Equals(Rect & rect)
-	{
-		return X == rect.X &&
-			Y == rect.Y &&
-			Width == rect.Width &&
-			Height == rect.Height;
-	}
+s4 Rectx::GetTop()
+{
+	return Y;
+}
 
-	bool Contains(s4 x, s4 y)
-	{
-		return x >= X && x < X + Width &&
-			y >= Y && y < Y + Height;
-	}
+s4 Rectx::GetRight()
+{
+	return X + Width;
+}
 
-	bool Contains(Point& pt)
-	{
-		return Contains(pt.X, pt.Y);
-	}
+s4 Rectx::GetBottom()
+{
+	return Y + Height;
+}
 
-	bool Contains(Rect& rect)
-	{
-		return (X <= rect.X) && (rect.GetRight() <= GetRight()) &&
-			(Y <= rect.Y) && (rect.GetBottom() <= GetBottom());
-	}
+bool Rectx::IsEmptyArea()
+{
+	return (Width <= 0) || (Height <= 0);
+}
 
-	void Inflate(s4 dx, s4 dy)
-	{
-		X -= dx;
-		Y -= dy;
-		Width += 2 * dx;
-		Height += 2 * dy;
-	}
+bool Rectx::Equals(Rectx & rect)
+{
+	return X == rect.X &&
+		Y == rect.Y &&
+		Width == rect.Width &&
+		Height == rect.Height;
+}
 
-	void Inflate(Point& point)
-	{
-		Inflate(point.X, point.Y);
-	}
+bool Rectx::Contains(s4 x, s4 y)
+{
+	return x >= X && x < X + Width &&
+		y >= Y && y < Y + Height;
+}
 
-	bool Intersect(Rect& rect)
-	{
-		return Intersect(*this, *this, rect);
-	}
+bool Rectx::Contains(Pointx& pt)
+{
+	return Contains(pt.X, pt.Y);
+}
 
-	static bool Intersect(Rect& c, Rect& a, Rect& b)
-	{
-		s4 right = min(a.GetRight(), b.GetRight());
-		s4 bottom = min(a.GetBottom(), b.GetBottom());
-		s4 left = max(a.GetLeft(), b.GetLeft());
-		s4 top = max(a.GetTop(), b.GetTop());
+bool Rectx::Contains(Rectx& rect)
+{
+	return (X <= rect.X) && (rect.GetRight() <= GetRight()) &&
+		(Y <= rect.Y) && (rect.GetBottom() <= GetBottom());
+}
 
-		c.X = left;
-		c.Y = top;
-		c.Width = right - left;
-		c.Height = bottom - top;
-		return !c.IsEmptyArea();
-	}
+void Rectx::Inflate(s4 dx, s4 dy)
+{
+	X -= dx;
+	Y -= dy;
+	Width += 2 * dx;
+	Height += 2 * dy;
+}
 
-	bool IntersectsWith(Rect& rect)
-	{
-		return (GetLeft() < rect.GetRight() &&
-			GetTop() < rect.GetBottom() &&
-			GetRight() > rect.GetLeft() &&
-			GetBottom() > rect.GetTop());
-	}
+void Rectx::Inflate(Pointx& point)
+{
+	Inflate(point.X, point.Y);
+}
 
-	static bool Union(Rect& c, Rect& a, Rect& b)
-	{
-		s4 right = max(a.GetRight(), b.GetRight());
-		s4 bottom = max(a.GetBottom(), b.GetBottom());
-		s4 left = min(a.GetLeft(), b.GetLeft());
-		s4 top = min(a.GetTop(), b.GetTop());
+bool Rectx::Intersect(Rectx& rect)
+{
+	return Intersect(*this, *this, rect);
+}
 
-		c.X = left;
-		c.Y = top;
-		c.Width = right - left;
-		c.Height = bottom - top;
-		return !c.IsEmptyArea();
-	}
+bool Rectx::Intersect(Rectx& c, Rectx& a, Rectx& b)
+{
+	s4 right = min(a.GetRight(), b.GetRight());
+	s4 bottom = min(a.GetBottom(), b.GetBottom());
+	s4 left = max(a.GetLeft(), b.GetLeft());
+	s4 top = max(a.GetTop(), b.GetTop());
 
-	void Offset(const Point& point)
-	{
-		Offset(point.X, point.Y);
-	}
+	c.X = left;
+	c.Y = top;
+	c.Width = right - left;
+	c.Height = bottom - top;
+	return !c.IsEmptyArea();
+}
 
-	void Offset(s4 dx, s4 dy)
-	{
-		X += dx;
-		Y += dy;
-	}
+bool Rectx::IntersectsWith(Rectx& rect)
+{
+	return (GetLeft() < rect.GetRight() &&
+		GetTop() < rect.GetBottom() &&
+		GetRight() > rect.GetLeft() &&
+		GetBottom() > rect.GetTop());
+}
 
-public:
-	s4 X;
-	s4 Y;
-	s4 Width;
-	s4 Height;
-};
+bool Rectx::Union(Rectx& c, Rectx& a, Rectx& b)
+{
+	s4 right = max(a.GetRight(), b.GetRight());
+	s4 bottom = max(a.GetBottom(), b.GetBottom());
+	s4 left = min(a.GetLeft(), b.GetLeft());
+	s4 top = min(a.GetTop(), b.GetTop());
+
+	c.X = left;
+	c.Y = top;
+	c.Width = right - left;
+	c.Height = bottom - top;
+	return !c.IsEmptyArea();
+}
+
+void Rectx::Offset(const Pointx& point)
+{
+	Offset(point.X, point.Y);
+}
+
+void Rectx::Offset(s4 dx, s4 dy)
+{
+	X += dx;
+	Y += dy;
+}

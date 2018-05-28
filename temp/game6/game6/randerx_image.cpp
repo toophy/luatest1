@@ -1,4 +1,6 @@
 #include "randerx.h"
+#include <sstream>
+#include <iostream>
 
 using namespace randerx;
 
@@ -26,7 +28,7 @@ u4 Image::GetHeight()
 
 ssr Image::GetName()
 {
-	return m_Alias;
+	return m_Name;
 }
 
 ssr Image::GetFileName()
@@ -39,12 +41,21 @@ bool Image::IsFromFile()
 	return !m_FileName.empty();
 }
 
-bool Image::LoadFromFile(ssr alias, ssr file, bool reload)
+bool Image::LoadFromFile(ssr name, ssr file, bool reload)
 {
 	return true;
 }
 
-bool Image::LoadFromBuffer(ssr alias, s1* data, bool reload)
+bool Image::LoadFromBuffer(ssr name, cs1* data, u4 data_len, bool reload)
 {
+	s1 buff[128];
+	std::istringstream istr(data);
+	while (istr.getline(buff, sizeof(buff), '\n')){
+		std::cout << buff << std::endl;
+	}
+
+	// ¡õ
+	// ¡î
+	// 
 	return true;
 }

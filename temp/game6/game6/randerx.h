@@ -10,45 +10,45 @@ namespace randerx
 	#define min(a,b) (((a) < (b)) ? (a) : (b))
 
 	// 点
- 	class Point
+ 	class Pointx
 	{
 	public:
-		Point();
-		Point(Point &point);
-		Point(s4 x, s4 y);
-		Point operator+(Point& point);
-		Point operator-(Point& point);
-		bool Equals(Point& point);
+		Pointx();
+		Pointx(Pointx &point);
+		Pointx(s4 x, s4 y);
+		Pointx operator+(Pointx& point);
+		Pointx operator-(Pointx& point);
+		bool Equals(Pointx& point);
 	public:
 		s4 X;
 		s4 Y;
 	};
 
 	// 矩形
-	class Rect
+	class Rectx
 	{
 	public:
-		Rect();
-		Rect(s4 x, s4 y, s4 width, s4 height);
-		Rect* Clone();
-		void GetLocation(Point* point);
-		void GetBounds(Rect* rect);
+		Rectx();
+		Rectx(s4 x, s4 y, s4 width, s4 height);
+		Rectx* Clone();
+		void GetLocation(Pointx* point);
+		void GetBounds(Rectx* rect);
 		s4 GetLeft();
 		s4 GetTop();
 		s4 GetRight();
 		s4 GetBottom();
 		bool IsEmptyArea();
-		bool Equals(Rect & rect);
+		bool Equals(Rectx & rect);
 		bool Contains(s4 x, s4 y);
-		bool Contains(Point& pt);
-		bool Contains(Rect& rect);
+		bool Contains(Pointx& pt);
+		bool Contains(Rectx& rect);
 		void Inflate(s4 dx, s4 dy);
-		void Inflate(Point& point);
-		bool Intersect(Rect& rect);
-		static bool Intersect(Rect& c, Rect& a, Rect& b);
-		bool IntersectsWith(Rect& rect);
-		static bool Union(Rect& c, Rect& a, Rect& b);
-		void Offset(const Point& point);
+		void Inflate(Pointx& point);
+		bool Intersect(Rectx& rect);
+		static bool Intersect(Rectx& c, Rectx& a, Rectx& b);
+		bool IntersectsWith(Rectx& rect);
+		static bool Union(Rectx& c, Rectx& a, Rectx& b);
+		void Offset(const Pointx& point);
 		void Offset(s4 dx, s4 dy);
 	public:
 		s4 X;
@@ -73,8 +73,8 @@ namespace randerx
 
 		bool IsFromFile();
 
-		bool LoadFromFile(ssr alias, ssr file, bool reload);
-		bool LoadFromBuffer(ssr alias, s1* data, bool reload);
+		bool LoadFromFile(ssr name, ssr file, bool reload);
+		bool LoadFromBuffer(ssr name, cs1* data, u4 data_len, bool reload);
 
 	protected:
 		u4		m_ID;
@@ -94,10 +94,12 @@ namespace randerx
 		ImageMgr();
 		~ImageMgr();
 
-		u4 GetImage(ssr alias);
+		Image* GetImageFromID(u4 id);
+		Image* GetImageFromName(ssr name);
+		u4 GetImage(ssr name);
 
-		u4 LoadFromFile(ssr alias, ssr file, bool reload);
-		u4 LoadFromBuffer(ssr alias, vs1& data, bool reload);
+		u4 LoadFromFile(ssr name, ssr file, bool reload);
+		u4 LoadFromBuffer(ssr name, cs1* data, u4 data_len, bool reload);
 
 	private:
 		u4			m_LastID;
@@ -105,12 +107,21 @@ namespace randerx
 		ImageNames	m_ImageNames;
 	};
 
+	ImageMgr* GetImageMgr();
+
 	class Layer;
 
 	// 面板(动态图片面板)
 	class Surface
 	{
 		friend class Layer;
+	public:
+		enum {
+			MaxWidth = 1000
+		};
+		enum {
+			MaxHeight = 1000
+		};
 	public:
 		Surface();
 		~Surface();
@@ -125,14 +136,19 @@ namespace randerx
 		u4	GetWidth();
 		u4	GetHeight();
 
-		void Resize(u4 width, u4 height);
+		bool IsShow();
+		void Show();
+		void Hide();
+
+		bool Resize(u4 width, u4 height);
+		void Clear();
 		bool LoadFromImage(u4 imageID);
 		bool LoadFromImage(ssr imageAlias);
 
 	private:
 		void SetID(u4 id);
 		void SetLayerID(u4 id);
-		void MoveTo(u4 x, u4 y);
+		void MoveTo(s4 x, s4 y);
 
 	protected:
 		u4		m_ID;
@@ -141,8 +157,9 @@ namespace randerx
 		s4		m_PosY;
 		u4		m_Width;
 		u4		m_Height;
-		vs1		m_Data;
+		s1		*m_Data;
 		ssr		m_Name;
+		bool	m_Show;
 	};
 
 	// 动态图片分层管理
@@ -158,11 +175,11 @@ namespace randerx
 		ssr		GetName();
 
 		u4		InsertSurface(ssr name,Surface* data);
-		bool	RemoveSurface(u4 id);
-		bool	RemoveSurface(ssr name);
+		void	RemoveSurface(u4 id);
+		void	RemoveSurface(ssr name);
 
-		bool	MoveTo(u4 id,u4 x, u4 y);
-		bool	MoveTo(ssr name, u4 x, u4 y);
+		bool	MoveTo(u4 id,s4 x, s4 y);
+		bool	MoveTo(ssr name, s4 x, s4 y);
 
 		bool	ChangeZIndex(u4 id);
 		bool	ChangeZIndex(ssr name);
@@ -179,16 +196,36 @@ namespace randerx
 	// 屏幕备份, 脏矩形产地
 	class ScreenBack
 	{
-		typedef std::map<u8, Rect>	DirtyRects;
+	public:
+		typedef std::map<u8, Rectx>	DirtyRects;
+		enum {
+			Default_Width = 82,
+			Default_Height = 32,
+		};
 	public:
 		ScreenBack();
-
 		~ScreenBack();
 
-		void	InsertDirtyRect(Rect& r);
-		void	InsertDirtyRect(s4 x, s4 y, u4 w, u4 h);
+		u4		GetWidth();
+		u4		GetHeight();
+
+		void	Resize(u4 width, u4 height);
+
+		void	InsertDirtyRect(Rectx& r);
+		void	InsertDirtyRect(s4 x, s4 y, s4 w, s4 h);
 
 	private:
+		void	ReleaseAll();
+
+	private:
+		u4					m_Width;
+		u4					m_Height;
+		s1*					m_Data;
+		s1*					m_Change;
 		DirtyRects			m_Rects;
 	};
-}
+
+	// 公共屏幕备份
+	ScreenBack* GetScreenBack();
+};
+
